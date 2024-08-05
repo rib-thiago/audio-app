@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Metadata</title>
+</head>
+<body>
+    <h1>Metadados do Áudio</h1>
+    <ul>
+        <li>Nome do arquivo: {{ metadata.filename }}</li>
+        <li>Duração: {{ metadata.duration }}</li>
+        <li>Formato MIME: {{ metadata.mime }}</li>
+        <li>Tamanho do arquivo: {{ metadata.size }}</li>
+    </ul>
+    <audio controls>
+        <source src="/uploads/{{ metadata.filename }}" type="{{ metadata.mime }}">
+        Seu Navegador não suporta o elemento de áudio.
+    </audio>
+    <form action="/" method="get">
+        <button type="submit">Voltar</button>
+    </form>
+</body>
+</html>
