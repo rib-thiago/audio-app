@@ -6,6 +6,11 @@ import os
 app = FastAPI()
 templates = Jinja2Templates(directory="audio_app/templates")
 
+UPLOAD_DIRECTORY = "audio_app/uploads"
+
+# crie o diretório de uploads se não exitir
+os.makedirs(UPLOAD_DIRECTORY, exist_ok=True)
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
