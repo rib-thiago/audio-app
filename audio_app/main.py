@@ -1,7 +1,7 @@
 import os
 import ffmpeg
 from fastapi import FastAPI, Request, Form, UploadFile, File
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
@@ -55,3 +55,29 @@ async def upload_audio(request: Request, file: UploadFile = File(...)):
     }
     
     return templates.TemplateResponse("metadata.html", {"request": request, "metadata": metadata})
+
+@app.get("/selected-audio/{filename}/{current_format}", response_class=HTMLResponse)
+async def get_convert_audio(request: Request, filename: str, current_format: str):
+    # Renderizar o template de conversão com as informações do arquivo e formato atual
+    return templates.TemplateResponse("convert_audio.html", {
+        "request": request,
+        "filename": filename,
+        "current_format": current_format
+    })
+
+@app.post("/convert-audio/")
+async def convert_audio(request: Request, filename: str = Form(...), format: str = Form(...)):
+    file_location = os.path.join(UPLOAD_DIRECTORY, filename)
+    output_location = os.path.join(UPLOAD_DIRECTORY, f'converted.{format}')
+
+    # Conversão usando o ffmpeg
+    ffmpeg.input(file_location).output(output_location).run(quiet=True)
+
+    return templates.TemplateResponse("convert_audio.html", {
+        "request": request,
+        "filename": filename,
+        "current_format": format,
+        "converted_file": output_location
+    })
+
+

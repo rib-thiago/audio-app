@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Conversion</title>
+</head>
+<body>
+    <h1>Conversão de Áudio</h1>
+    <p>Nome do Arquivo original: {{ filename }}</p>
+    <p>Formato atual: {{ current_format }}</p>
+    <form action="/convert-audio/" method="post">
+        <input type="hidden" name="filename" value="{{ filename }}">
+        <input type="hidden" name="current_format" value="{{ current_format }}">
+        <label for="format">Converter para:</label>
+        <select id="format" name="format">
+            {% if current_format == 'mp3' %}
+                <option value="wav">WAV</option>
+            {% else %}
+                <option value="mp3">MP3</option>
+            {% endif %}
+        </select>
+        <button type="submit">Converter Áudio</button>
+    </form>
+    {% if converted_file %}
+        <h2>Arquivo convertido disponível:</h2>
+        <a href="{{ url_for('uploads', path=converted_file.split('/')[-1]) }}">Baixar arquivo convertido</a>
+    {% endif %}
+    <form action="/" method="get">
+        <button type="submit">Voltar</button>
+    </form>
+</body>
+</html>
