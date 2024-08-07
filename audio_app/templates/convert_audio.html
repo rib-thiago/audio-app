@@ -4,30 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Conversion</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Conversão de Áudio</h1>
-    <p>Nome do Arquivo original: {{ filename }}</p>
-    <p>Formato atual: {{ current_format }}</p>
-    <form action="/convert-audio/" method="post">
-        <input type="hidden" name="filename" value="{{ filename }}">
-        <input type="hidden" name="current_format" value="{{ current_format }}">
-        <label for="format">Converter para:</label>
-        <select id="format" name="format">
-            {% if current_format == 'mp3' %}
-                <option value="wav" selected>WAV</option>
-            {% elif current_format == 'wav' %}
-                <option value="mp3" selected>MP3</option>
-            {% endif %}
-        </select>
-        <button type="submit">Converter Áudio</button>
-    </form>
-    {% if converted_file %}
-        <h2>Arquivo convertido disponível:</h2>
-        <a href="{{ url_for('uploads', path=converted_file.split('/')[-1]) }}">Baixar arquivo convertido</a>
-    {% endif %}
-    <form action="/" method="get">
-        <button type="submit">Voltar</button>
-    </form>
+    <header class="navbar">
+        <a href="/" class="navbar__link">Home</a>
+    </header>
+    <main class="container">
+        <h1 class="heading">Conversão de Áudio</h1>
+        <ul class="ul-center">
+            <li>Nome do Arquivo original: {{ filename }}</li>
+            <li>Formato atual: {{ current_format }}</li>
+        </ul>
+        <p></p>
+        <form class="form" action="/convert-audio/" method="post">
+            <input type="hidden" name="filename" value="{{ filename }}">
+            <input type="hidden" name="current_format" value="{{ current_format }}">
+            <div class="form__group">
+                <label class="form__label" for="format">Converter para:</label>
+                <select class="form__select" id="format" name="format">
+                    {% if current_format == 'mp3' %}
+                        <option value="wav" selected>WAV</option>
+                    {% elif current_format == 'wav' %}
+                        <option value="mp3" selected>MP3</option>
+                    {% endif %}
+                </select>
+            </div>
+            <button class="form__button" type="submit">Converter Áudio</button>
+        </form>
+        {% if converted_file %}
+            <h2>Arquivo convertido disponível:</h2>
+            <a href="{{ url_for('uploads', path=converted_file.split('/')[-1]) }}">Baixar arquivo convertido</a>
+        {% endif %}
+        <form class="form" action="/" method="get">
+            <button class="form__button" type="submit">Voltar</button>
+        </form>
+    </main>
 </body>
 </html>

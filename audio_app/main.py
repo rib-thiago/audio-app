@@ -10,12 +10,16 @@ app = FastAPI()
 templates = Jinja2Templates(directory="audio_app/templates")
 
 UPLOAD_DIRECTORY = "audio_app/uploads"
+STATIC_DIRECTORY = "audio_app/static"
 
-# crie o diretório de uploads se não exitir
+# Criar diretórios se não existirem
 os.makedirs(UPLOAD_DIRECTORY, exist_ok=True)
+os.makedirs(STATIC_DIRECTORY, exist_ok=True)
 
-# Servir arquivos da pasta download
+
+# Servir arquivos das pastas uploads e static
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIRECTORY), name="uploads")
+app.mount("/static", StaticFiles(directory=STATIC_DIRECTORY), name="static")
 
 # dicionário para mapear os formatos MIME
 
@@ -23,7 +27,6 @@ MIME_TYPE_MAPPING = {
     "audio/mpeg": "mp3",
     "audio/wav": "wav"
 }
-
 
 def get_duration(file_path):
     result = ffmpeg.probe(file_path, select_streams='a:0', show_entries='format=duration', format='json')

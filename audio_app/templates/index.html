@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Upload</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Upload de Audio</h1>
-    <form action="/upload-audio/" enctype="multipart/form-data" method="post">
-        <input type="file" name="file" accept=".mp3, .wav">
-        <button type="submit">Upload</button>
-    </form>
+    <header class="navbar">
+        <a href="/" class="navbar__link">Home</a>
+    </header>
+    <main class="container">
+        <h1 class="heading">Upload de Audio</h1>
+        <form class="form" action="/upload-audio/" enctype="multipart/form-data" method="post">
+            <div class="form__group">
+                <label class="form__label" for="file">Escolha um arquivo de áudio:</label>
+                <input class="form__input" type="file" name="file" accept=".mp3, .wav">
+            </div>
+            <button class="form__button" type="submit">Upload</button>
+        </form>
+    </main>
 </body>
 </html>
