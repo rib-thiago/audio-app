@@ -78,7 +78,8 @@ async def get_convert_audio(request: Request, filename: str, format: str):
 @app.post("/convert-audio/")
 async def convert_audio(request: Request, filename: str = Form(...), format: str = Form(...)):
     file_location = os.path.join(UPLOAD_DIRECTORY, filename)
-    output_location = os.path.join(UPLOAD_DIRECTORY, f'converted.{format}')
+    base_name, _ = os.path.splitext(filename)
+    output_location = os.path.join(UPLOAD_DIRECTORY, f'converted_{base_name}.{format}')
 
     # Conversão usando o ffmpeg
     ffmpeg.input(file_location).output(output_location).run(quiet=True)

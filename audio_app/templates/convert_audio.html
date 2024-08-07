@@ -15,9 +15,9 @@
         <label for="format">Converter para:</label>
         <select id="format" name="format">
             {% if current_format == 'mp3' %}
-                <option value="wav">WAV</option>
-            {% else %}
-                <option value="mp3">MP3</option>
+                <option value="wav" selected>WAV</option>
+            {% elif current_format == 'wav' %}
+                <option value="mp3" selected>MP3</option>
             {% endif %}
         </select>
         <button type="submit">Converter Áudio</button>
