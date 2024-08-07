@@ -20,7 +20,7 @@
     <form action="/" method="get">
         <button type="submit">Voltar</button>
     </form>
-    <form action="/selected-audio/{{ metadata.filename }}/{{ metadata.mime.split('/')[1] }}" method="get">
+    <form action="/selected-audio/{{ metadata.filename }}/{{ metadata.format }}" method="get">
         <button type="submit">Converter Áudio</button>
     </form>
 </body>
