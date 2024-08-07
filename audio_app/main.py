@@ -17,6 +17,13 @@ os.makedirs(UPLOAD_DIRECTORY, exist_ok=True)
 # Servir arquivos da pasta download
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIRECTORY), name="uploads")
 
+# dicionário para mapear os formatos MIME
+
+MIME_TYPE_MAPPING = {
+    "audio/mpeg": "mp3",
+    "audio/wav": "wav"
+}
+
 
 def get_duration(file_path):
     result = ffmpeg.probe(file_path, select_streams='a:0', show_entries='format=duration', format='json')
@@ -46,11 +53,14 @@ async def upload_audio(request: Request, file: UploadFile = File(...)):
     duration = get_duration(file_location)
     size = os.path.getsize(file_location)
     mime = file.content_type
+    format_friendly = MIME_TYPE_MAPPING.get(mime, mime)
+
     
     metadata = {
         "filename": file.filename,
         "duration": format_duration(duration),
         "mime": mime,
+        "format": format_friendly,
         "size": format_size(size)
     }
     

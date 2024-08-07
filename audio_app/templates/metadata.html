@@ -10,7 +10,7 @@
     <ul>
         <li>Nome do arquivo: {{ metadata.filename }}</li>
         <li>Duração: {{ metadata.duration }}</li>
-        <li>Formato MIME: {{ metadata.mime }}</li>
+        <li>Formato: {{ metadata.format }}</li>
         <li>Tamanho do arquivo: {{ metadata.size }}</li>
     </ul>
     <audio controls>
@@ -25,12 +25,3 @@
     </form>
 </body>
 </html>
-
-<!--
-metadata = {
-    "filename": file.filename,
-    "duration": format_duration(duration),
-    "mime": mime,
-    "size": format_size(size)
-}
--->
