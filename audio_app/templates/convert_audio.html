@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Conversion</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/scripts.js" defer></script>
 </head>
 <body>
     <header class="navbar">
@@ -32,9 +33,13 @@
             <button class="form__button" type="submit">Converter Áudio</button>
         </form>
         {% if converted_file %}
-            <form class="form" action="{{ url_for('uploads', path=converted_file.split('/')[-1]) }}" method="get">
-                <button class="form__button" type="submit">Baixar arquivo convertido</button>
-            </form>
+        <div class="modal modal--show">
+            <div class="modal__content">
+                <span class="modal__close">&times;</span>
+                <p>O arquivo convertido está disponível para download:</p>
+                <a href="{{ url_for('uploads', path=converted_file.split('/')[-1]) }}" class="modal__download-link">Baixar arquivo convertido</a>
+            </div>
+        </div>
         {% endif %}
         <form class="form" action="/" method="get">
             <button class="form__button" type="submit">Voltar</button>
